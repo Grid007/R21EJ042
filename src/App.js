@@ -1,16 +1,27 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import AllProducts from './pages/AllProducts';
-import ProductPage from './pages/ProductPage';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ProductProvider } from './ProductContext';
+import ProductsListPage from './components/ProductsListPage';
+import ProductDetailPage from './components/ProductDetailPage';
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={AllProducts} />
-        <Route path="/product/:id" component={ProductPage} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <ProductProvider>
+        <div className="App">
+          <header className="App-header">
+            <h1>Product Catalog</h1>
+          </header>
+          <main>
+            <Routes>
+              <Route path="/" exact element={<ProductsListPage />} />
+              <Route path="/products/:productId" element={<ProductDetailPage />} />
+            </Routes>
+          </main>
+        </div>
+      </ProductProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
